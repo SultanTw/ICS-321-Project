@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Request Blood</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .submit-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Request Blood Bags</h1>
+    <form method="POST" action="{{ url_for('process_blood_requests') }}" onsubmit="return validateForm()">
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Price</th>
+                    <th>Bag ID</th>
+                    <th>Requested By</th>
+                    <th>Volume</th>
+                    <th>Bag Blood Type</th>
+                    <th>Expiry Date</th>
+                    <th>Donor Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bag in blood_bags %}
+                <tr>
+                    <td><input type="checkbox" name="requested_bags" value="{{ bag.Blood_Bag_ID }}" data-pending-by-id="{{ bag.Pending_By_ID }}" data-bag-price="{{bag.Price}}"></td>
+                    <td>{{ bag.Price }} SAR</td>
+                    <td>{{ bag.Blood_Bag_ID }}</td>
+                    <td>{{ bag.Pending_By }}</td>
+                    <td>{{ bag.Volume }}</td>
+                    <td>{{ bag.Blood_Type_Name}}</td>
+                    <td>{{ bag.Expiry_Date}}</td>
+                    <td>{{ bag.Donor_Name}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not blood_bags %}
+        <p>No blood bags available.</p>
+        {% endif %}
+
+        <!-- show emails sent and the email owner name -->
+        {% if emails%}
+        <p>Emails sent to:</p>
+        <ul>
+            {% for email in emails %}
+            <li>{{ email }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+
+        <p>Total Price Selected: <span id="total-price">0 SAR</span></p>
+        <input type="hidden" name="total_price" id="total-price-input">
+        <button type="submit" class="submit-button" name="action" value="Approve">Approve</button>
+        <button type="submit" class="submit-button" name="action" value="Reject" style="background-color: rgb(164, 164, 164);">Reject</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            const checkboxes = document.querySelectorAll('input[name="requested_bags"]');
+            let checkedCount = 0;
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+
+            if (checkedCount === 0) {
+                alert("Please select at least one blood bag.");
+                return false;
+            }
+
+            document.getElementById('total-price-input').value = document.getElementById('total-price').textContent;
+            document.getElementById('pending-by-id-input').value = getPendingByID();
+            return true;
+        }
+
+        function getPendingByID() {
+            const checkboxes = document.querySelectorAll('input[name="requested_bags"]');
+            let pendingByID = "";
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    pendingByID += checkbox.getAttribute('data-pending-by-id') + ",";
+                }
+            });
+
+            return pendingByID.slice(0, -1);
+        }
+    </script>
+    <script>
+        // Calculate total price selected
+        const checkboxes = document.querySelectorAll('input[name="requested_bags"]');
+        const totalPriceElement = document.getElementById('total-price');
+        let totalPrice = 0;
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    totalPrice += parseFloat(checkbox.parentNode.nextElementSibling.textContent);
+                } else {
+                    totalPrice -= parseFloat(checkbox.parentNode.nextElementSibling.textContent);
+                }
+                totalPriceElement.textContent = totalPrice.toFixed(2) + " SAR";
+            });
+        });
+    </script>
+
+    
+</body>
+</html>

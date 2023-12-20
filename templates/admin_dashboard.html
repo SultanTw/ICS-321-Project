@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">  
+</head>
+<body>
+    <h1>Welcome, Admin {{ user_name }}</h1>
+    <ul>
+        <li><a href="/manage_patients">Manage Patients</a></li>
+        <li><a href="/view_history_admin">Search Patients History</a></li>
+        <li><a href="/process_blood_requests">Process Blood Requests</a></li>
+        <li><a href="/organize_drive">Organize Blood Drive</a></li>
+        <li><a href="/generate_reports">Generate Reports</a></li>
+    </ul>
+    <a href="/logout">Logout</a>
+</body>
+</html>

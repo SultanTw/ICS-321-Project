@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="password"],
+        form input[type="date"],
+        form input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        form input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            /* make center */
+            margin-left: auto;
+            margin-right: auto;
+            /* make look better */
+            border: 1px solid #ddd;
+            
+
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        td a {
+            color: #333;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        .styleless-button {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+    }
+    </style>
+</head>
+<body>
+    <h1>Manage Users</h1>
+    <!-- Add User Form -->
+
+    <!-- <button id="toggleFormButton">Add User</button> -->
+
+    <div id="addUserForm">
+        <form method="POST" action="/add_patient">
+            Name: <input type="text" name="name" required><br>
+            Email: <input type="email" name="email" required><br>
+            Date of Birth: <input type="date" name="dob"><br>
+            Contact Number: <input type="text" name="contact_number"><br>
+            Medical History: <input type="text" name="medical_history"><br>
+            <br>
+            Blood Type: 
+            <select name="blood_type">
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select><br><br>
+            Weight: <input type="number" name="weight"><br>
+            Height: <input type="number" name="height"><br>
+            <input type="submit" value="Add User">
+        </form>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+    
+
+    <!-- List Users with Edit/Delete options -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Contact Number</th>
+                <th>Medical History</th>
+                <th>Blood Type</th>
+                <th>Weight</th>
+                <th>Height</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.SSN }}</td>
+                <td>{{ user.Name }}</td>
+                <td>{{ user.Email }}</td>
+                <td>{{ user.Date_of_Birth }}</td>
+                <td>{{ user.Contact_Number }}</td>
+                <td>{{ user.Medical_History }}</td>
+                <td>{{ user.Blood_Type_Name }}</td>
+                <td>{{ user.Weight}}</td>
+                <td>{{ user.Height }}</td>
+                <td>
+                    <form method="POST" action="/delete_patient/{{ user.SSN }}" class="styleless-button">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <form method="GET" action="/edit_patient/{{ user.SSN }}" class="styleless-button">
+                        <button type="submit">Edit</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- <script>
+        document.getElementById('toggleFormButton').addEventListener('click', function() {
+            var form = document.getElementById('addUserForm');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        });
+    </script> -->
+</body>
+</html>

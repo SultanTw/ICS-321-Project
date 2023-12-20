@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .balance {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .balance.positive {
+            color: green;
+        }
+        .balance.negative {
+            color: red;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var balanceElement = document.querySelector(".balance");
+            var balanceValue = parseFloat(balanceElement.textContent.split(" ")[1]);
+            if (balanceValue < 0) {
+                balanceElement.classList.add("negative");
+            } else {
+                balanceElement.classList.add("positive");
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Welcome, Patient {{ user.Name }}</h1>
+    <p class="balance">Balance: {{ user.Balance }} SAR</p>
+    <ul>
+        <li><a href="/donate_blood">Donate Blood</a></li>
+        <li><a href="/request_blood">Request Blood</a></li>
+        <li><a href="/add_balance">Add Balance</a></li>
+        <li><a href="/view_history">View History</a></li>
+        <li><a href="/update_user_info">Update Personal Information</a></li>
+    </ul>
+    <a href="/logout">Logout</a>
+</body>
+</html>

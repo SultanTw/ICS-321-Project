@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <form method="POST" action="/register">
+        Name: <input type="text" name="name"><br>
+        Email: <input type="email" name="email"><br>
+        Password: <input type="password" name="password"><br>
+        Contact Number: <input type="text" name="contact_number"><br>
+        Date of Birth: <input type="date" name="dob"><br>
+        Medical History: <input type="text" name="medical_history"><br>
+        Blood Type: <select name="blood_type">
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select><br>
+        Weight: <input type="number" name="weight"><br>
+        Height: <input type="number" name="height"><br>
+        <input type="submit" value="Register">
+    </form>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

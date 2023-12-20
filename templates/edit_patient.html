@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, select {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Patient</h1>
+    <form method="POST" action="/edit_patient/{{ user.SSN }}">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ user['Name'] }}" placeholder="Name"><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="{{ user['Email'] }}" placeholder="Email"><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" name="dob" value="{{ user['Date_Of_Birth'] }}"><br>
+
+        <label for="contact_number">Contact Number:</label>
+        <input type='text' name="contact_number" value="{{ user['Contact_Number'] }}" placeholder="Contact Number"><br>
+
+        <label for="medical_history">Medical History:</label>
+        <input type="text" name="medical_history" value="{{ user['Medical_History'] }}" placeholder="Medical History"><br>
+
+        <label for="blood_type">Blood Type:</label>
+        <select name="blood_type">
+            <option value="{{ user['Blood_Type'] }}" selected>{{ user['Blood_Type'] }}</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+        </select><br>
+
+        <label for="weight">Weight:</label>
+        <input type="number" name="weight" value="{{ user['Weight'] }}" placeholder="Weight"><br>
+
+        <label for="height">Height:</label>
+        <input type="number" name="height" value="{{ user['Height'] }}" placeholder="Height"><br>
+
+        <input type="submit" value="Update User">
+    </form>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% endif %}
+</body>
+</html>

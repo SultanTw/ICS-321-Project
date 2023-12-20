@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payments Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Payments Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Receiver Name</th>
+                <th>Total Cost</th>
+                <th>Contact Number</th>
+                <th>Reciever Blood Type</th>
+                <th>Receiving Date</th>
+                <th>Number of Bags Used</th>
+                <th>Total Blood Volume Received</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in payments %}
+            <tr>
+                <td>{{ payment.Receiver_Name }}</td>
+                <td>{{ payment.Total_Payment}} SAR</td>
+                <td>{{ payment.Receiver_Contact_Number }}</td>
+                <td>{{ payment.Receiver_Blood_Type_Name }}</td>
+                <td>{{ payment.Receiving_Date }}</td>
+                <td>{{ payment.Number_of_bags_used }}</td>
+                <td>{{ payment.Total_Blood_Volume_Received }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not payments %}
+    <p>No payment data available.</p>
+    {% endif %}
+</body>
+</html>

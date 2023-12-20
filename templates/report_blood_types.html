@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blood Type Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .submit-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #218838;
+        }
+        .go-back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .go-back-button:hover {
+            background-color: #c82333;
+        }
+        .top-left-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .top-left-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blood Type Availability Report</h1>
+    <button class="top-left-button" onclick="goBack()">Go Back</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Blood Type Name</th>
+                <th>Total Bags Amount</th>
+                <th>Total Bags Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in blood_types %}
+            <tr>
+                <td>{{ row.Blood_Type_Name }}</td>
+                <td>{{ row.Total_Bags_Amount }}</td>
+                <td>{{ row.Total_Bags_Volume }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not blood_types %}
+    <p>No data available.</p>
+    {% endif %}
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

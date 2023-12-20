@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Reports</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            display: block;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 4px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Reports</h1>
+        <ul>
+            <li><a href="/report_blood_donations">Display all blood donations received in a week/month</a></li>
+            <br>
+            <li><a href="/report_blood_types">Display the aggregated amount available for each blood type</a></li>
+            <br>
+            <li><a href="/report_collection_drives">Display all Collection Drive and total blood collected during each drive</a></li>
+            <br>
+            <li><a href="/report_payments">Display All Completed Payments</a></li>
+        </ul>
+    </div>
+</body>
+</html>
